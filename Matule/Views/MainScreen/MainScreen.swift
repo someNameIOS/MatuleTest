@@ -12,7 +12,7 @@ class MainScreen: UIViewController {
     
     let collectionData = MainSectionModel.mockData()
     
-    // индекс выбранной ячейки
+    // Индекс выбранной ячейки
     var selectedIndexPath: IndexPath?
     
     lazy var collectionView: UICollectionView = {
@@ -20,6 +20,7 @@ class MainScreen: UIViewController {
         $0.register(PopularCell.self, forCellWithReuseIdentifier: PopularCell.reuseID)
         $0.register(StockCell.self, forCellWithReuseIdentifier: StockCell.reuseID)
         $0.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.reuseID)
+        $0.register(SearchSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchSectionHeader.reuseID)
         $0.dataSource = self
         $0.delegate = self
         $0.backgroundColor = .appBackground
@@ -32,6 +33,24 @@ class MainScreen: UIViewController {
         let nameImage = UIImage(named: "MainController")
         let image = UIImageView(image: nameImage)
         navigationItem.titleView = image
+        
+
+        // Создаем левую кнопку
+        let leftButton = UIBarButtonItem(image: .options.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(leftButtonTapped))
+
+        // Создаем правую кнопку
+        let rightButton = UIBarButtonItem(image: .bag.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(rightButtonTapped))
+
+        // Устанавливаем кнопки на навигационную панель
+        navigationItem.leftBarButtonItem = leftButton
+        navigationItem.rightBarButtonItem = rightButton
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .appBackground
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
+        
         
         // Отложенное выполнение установки цвета
         DispatchQueue.main.async {
@@ -61,18 +80,18 @@ class MainScreen: UIViewController {
         //Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 16)
         
         //Group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(116), heightDimension: .absolute(40))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(124), heightDimension: .absolute(40))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 8)
         
         //Section
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = .init(top: 19, leading: 12, bottom: 24, trailing: 12)
+        section.contentInsets = .init(top: 19, leading: 20, bottom: 24, trailing: 20)
         
-        section.boundarySupplementaryItems = [self.setupHeaderSize()]
+        section.boundarySupplementaryItems = [self.setupHeaderSize(for: 0)]
         
         return section
     }
@@ -91,7 +110,7 @@ class MainScreen: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 30, leading: 20, bottom: 29, trailing: 20)
         
-        section.boundarySupplementaryItems = [self.setupHeaderSize()]
+        section.boundarySupplementaryItems = [self.setupHeaderSize(for: 1)]
         
         return section
     }
@@ -100,9 +119,10 @@ class MainScreen: UIViewController {
         //Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20)
         
         //Group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(view.frame.width - 40), heightDimension: .absolute(95))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(view.frame.width - 20), heightDimension: .absolute(95))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         //Section
@@ -110,15 +130,18 @@ class MainScreen: UIViewController {
         section.orthogonalScrollingBehavior = .groupPaging
         section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20)
         
-        section.boundarySupplementaryItems = [self.setupHeaderSize()]
+        section.boundarySupplementaryItems = [self.setupHeaderSize(for: 2)]
         
         return section
     }
     
-    private func setupHeaderSize() -> NSCollectionLayoutBoundarySupplementaryItem {
-        .init(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                 heightDimension: .absolute(19)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+    private func setupHeaderSize(for section: Int) -> NSCollectionLayoutBoundarySupplementaryItem {
+        let height: CGFloat = section == 0 ? 111 : 19
+        return NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                   heightDimension: .absolute(height)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
     }
+    
 }
 
 extension MainScreen: UICollectionViewDataSource {
@@ -161,18 +184,21 @@ extension MainScreen: UICollectionViewDelegate {
         
         if kind == UICollectionView.elementKindSectionHeader {
             
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseID, for: indexPath) as! SectionHeader
-            
             switch indexPath.section {
             case 0:
-                header.setup(model: item, type: .category)
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchSectionHeader.reuseID, for: indexPath) as! SearchSectionHeader
+                header.setup(model: item)
+                return header
             case 1:
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseID, for: indexPath) as! SectionHeader
                 header.setup(model: item, type: .popular)
+                return header
             default:
-                header.setup(model: item, type: .stock )
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseID, for: indexPath) as! SectionHeader
+                header.setup(model: item, type: .stock)
+                return header
+
             }
-            
-            return header
         }
         
         return UICollectionReusableView()
@@ -200,5 +226,13 @@ extension MainScreen: UICollectionViewDelegate {
 
 // MARK: Controller
 extension MainScreen {
+    
+    @objc func rightButtonTapped() {
+        
+    }
+    
+    @objc func leftButtonTapped() {
+        
+    }
     
 }

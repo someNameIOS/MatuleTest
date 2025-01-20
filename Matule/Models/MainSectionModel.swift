@@ -21,25 +21,11 @@ struct MainSectionModel {
             MainItemModel(categoryName: "Все"),
             MainItemModel(categoryName: "Outdoor"),
             MainItemModel(categoryName: "Tennis"),
-            MainItemModel(categoryName: "Популярное"),
-            MainItemModel(categoryName: "Избранное"),
         ]
         
         let popularItems: [MainItemModel] = [
             MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
             MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00")
         ]
         
         let stockItems: [MainItemModel] = [

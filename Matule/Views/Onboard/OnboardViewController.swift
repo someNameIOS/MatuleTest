@@ -35,7 +35,8 @@ class OnboardViewController: UIViewController {
         $0.backgroundColor = .appBlock
         $0.layer.cornerRadius = 13
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.titleLabel?.textColor = .appText
+        $0.setTitleColor(.appText, for: .normal)
+        $0.setTitle("Начать", for: .normal)
         $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return $0
     }(UIButton())
@@ -59,7 +60,7 @@ class OnboardViewController: UIViewController {
     
 }
 
-extension OnboardViewController: UICollectionViewDataSource {
+extension OnboardViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return model.count
     }
@@ -71,9 +72,7 @@ extension OnboardViewController: UICollectionViewDataSource {
         
         return cell
     }
-}
-
-extension OnboardViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         currentSlide = indexPath.item
         let isFirst = indexPath.item == 0

@@ -11,94 +11,63 @@ class SearchSectionHeader: UICollectionReusableView {
     
     static let reuseID = "SearchSectionHeader"
     
-    lazy var searchView: UIView = {
+    lazy var leftButton: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .appBlock
-        $0.layer.cornerRadius = 14
+        $0.setImage(.options, for: .normal)
+        $0.contentMode = .scaleAspectFill
         return $0
-    }(UIView())
+    }(UIButton())
     
-    lazy var searchLabel: UILabel = {
+    lazy var titleImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.text = "Поиск"
-        $0.font = .systemFont(ofSize: 12, weight: .regular)
-        $0.textColor = .appHint
-        return $0
-    }(UILabel())
-    
-    lazy var searchImage: UIImageView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = .search
-        $0.tintColor = .appHint
+        $0.image = .mainController
+        $0.contentMode = .scaleAspectFit
         return $0
     }(UIImageView())
     
-    lazy var view: UIView = {
+    lazy var additionalImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.layer.cornerRadius = 26
-        $0.backgroundColor = .appAccent
-        return $0
-    }(UIView())
-    
-    lazy var iconImage: UIImageView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = .sliders.withRenderingMode(.alwaysTemplate)
-        $0.tintColor = .appBackground
+        $0.image = .additional
         $0.contentMode = .scaleAspectFill
         return $0
     }(UIImageView())
     
-    lazy var sectionNameLabel: UILabel = {
+    lazy var rightButton: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .appText
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.setImage(.bagHighlighted, for: .normal)
+        $0.contentMode = .scaleAspectFill
         return $0
-    }(UILabel())
+    }(UIButton())
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubviews(searchView, view, sectionNameLabel)
-        view.addSubview(iconImage)
-        searchView.addSubviews(searchImage, searchLabel)
+        addSubviews(leftButton, additionalImage, titleImage, rightButton)
         
         setupConstraints()
     }
     
-    func setup(model: MainSectionModel) {
-        sectionNameLabel.text = model.header
-    }
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            searchView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            searchView.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -14),
-            searchView.topAnchor.constraint(equalTo: topAnchor, constant: 21),
-            searchView.heightAnchor.constraint(equalToConstant: 52),
+            leftButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            leftButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
+            leftButton.widthAnchor.constraint(equalToConstant: 26),
+            leftButton.heightAnchor.constraint(equalToConstant: 18),
             
-            searchImage.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 26),
-            searchImage.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 14),
-            searchImage.widthAnchor.constraint(equalToConstant: 24),
-            searchImage.heightAnchor.constraint(equalToConstant: 24),
+            rightButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            rightButton.topAnchor.constraint(equalTo: topAnchor),
+            rightButton.widthAnchor.constraint(equalToConstant: 44),
+            rightButton.heightAnchor.constraint(equalToConstant: 44),
             
-            searchLabel.leadingAnchor.constraint(equalTo: searchImage.trailingAnchor, constant: 12),
-            searchLabel.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 16),
-            searchLabel.widthAnchor.constraint(equalToConstant: 45),
-            searchLabel.heightAnchor.constraint(equalToConstant: 20),
+            titleImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -3),
+            titleImage.widthAnchor.constraint(equalToConstant: 129),
+            titleImage.heightAnchor.constraint(equalToConstant: 38),
             
-            view.trailingAnchor.constraint(equalTo: trailingAnchor),
-            view.topAnchor.constraint(equalTo: topAnchor, constant: 21),
-            view.widthAnchor.constraint(equalToConstant: 52),
-            view.heightAnchor.constraint(equalToConstant: 52),
-            
-            iconImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14),
-            iconImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 14),
-            iconImage.widthAnchor.constraint(equalToConstant: 24),
-            iconImage.heightAnchor.constraint(equalToConstant: 24),
-            
-            sectionNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            sectionNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            sectionNameLabel.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: 22),
+            additionalImage.trailingAnchor.constraint(equalTo: titleImage.leadingAnchor, constant: 5),
+            additionalImage.topAnchor.constraint(equalTo: titleImage.topAnchor, constant: -11),
+            additionalImage.widthAnchor.constraint(equalToConstant: 18),
+            additionalImage.heightAnchor.constraint(equalToConstant: 19),
         ])
     }
     

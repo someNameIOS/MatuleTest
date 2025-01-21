@@ -8,7 +8,7 @@
 import Foundation
 
 enum HeaderType {
-    case category, popular, stock
+    case search, category, popular, stock
 }
 
 struct MainSectionModel {
@@ -17,6 +17,10 @@ struct MainSectionModel {
     let headerType: HeaderType
     
     static func mockData() -> [MainSectionModel] {
+        let searchItems: [MainItemModel] = [
+            MainItemModel(),
+        ]
+        
         let categoryItems: [MainItemModel] = [
             MainItemModel(categoryName: "Все"),
             MainItemModel(categoryName: "Outdoor"),
@@ -33,10 +37,11 @@ struct MainSectionModel {
             MainItemModel(stocksImage: "Stocks"),
         ]
         
+        let searchSection: MainSectionModel = .init(header: "Поиск", items: searchItems, headerType: .search)
         let categorySection: MainSectionModel = .init(header: "Категории", items: categoryItems, headerType: .category)
         let popularSection: MainSectionModel = .init(header: "Популярное", items: popularItems, headerType: .popular)
         let stockSection: MainSectionModel = .init(header: "Акции", items: stockItems, headerType: .stock)
         
-        return [categorySection, popularSection, stockSection]
+        return [searchSection, categorySection, popularSection, stockSection]
     }
 }

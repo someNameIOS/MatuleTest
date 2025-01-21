@@ -18,7 +18,7 @@ final class LogInViewController: UIViewController {
         return $0
     }(UIView())
     
-    lazy var greetingLabel: Label = Label(labelColor: .appText, labelFont: .systemFont(ofSize: 32, weight: .regular), labelAlignment: .center, labelText: "Привет!")
+    lazy var greetingLabel: Label = Label(labelColor: .appText, labelFont: UIFont(name: "PlaywriteVN-Regular", size: 32) ?? .systemFont(ofSize: 32, weight: .regular), labelAlignment: .center, labelText: "Hello!")
     
     lazy var descriptionLabel: Label = Label(labelColor: .appSubTextDark, labelFont: .systemFont(ofSize: 16, weight: .regular), labelAlignment: .center, labelText: "Заполните Свои данные или \n продолжите через социальные медиа")
     
@@ -56,8 +56,6 @@ final class LogInViewController: UIViewController {
         $0.textColor = .appHint
         $0.layer.cornerRadius = 12
         $0.isSecureTextEntry = true
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 48))
-        $0.leftViewMode = .always
         return $0
     }(UITextField())
     

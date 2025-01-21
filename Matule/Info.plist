@@ -3,7 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>UIAppFonts</key>
-	<array/>
+	<array>
+		<string>PlaywriteVN-ExtraLight.ttf</string>
+		<string>PlaywriteVN-Light.ttf</string>
+		<string>PlaywriteVN-Regular.ttf</string>
+		<string>PlaywriteVN-Thin.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

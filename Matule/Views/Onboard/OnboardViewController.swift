@@ -89,7 +89,7 @@ extension OnboardViewController {
             currentSlide += 1
             collectionView.scrollToItem(at: IndexPath(item: currentSlide, section: 0), at: .centeredHorizontally, animated: false)
         } else if currentSlide == maxSlide {
-            let nextVC = LogInViewController()
+            let nextVC = TabBarController()
             if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate, let window = sceneDelegate.window {
                 window.rootViewController = nextVC
                 window.makeKeyAndVisible()

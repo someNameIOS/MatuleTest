@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: View
-class MainScreen: UIViewController {
+class MainViewController: UIViewController {
     
     let collectionData = MainSectionModel.mockData()
     
@@ -170,7 +170,7 @@ class MainScreen: UIViewController {
 }
 
 // MARK: dataSource
-extension MainScreen: UICollectionViewDataSource {
+extension MainViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         collectionData.count
@@ -206,7 +206,7 @@ extension MainScreen: UICollectionViewDataSource {
 }
 
 // MARK: delegate
-extension MainScreen: UICollectionViewDelegate {
+extension MainViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let section = collectionData[indexPath.section]

@@ -205,7 +205,7 @@ extension LogInViewController {
     }
     
     @objc private func loginButtonTapped() {
-        let nextVC = MainScreen()
+        let nextVC = TabBarController()
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate,
            let window = sceneDelegate.window {
             window.rootViewController = UINavigationController(rootViewController: nextVC)

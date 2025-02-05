@@ -13,13 +13,27 @@ class NetworkManager {
     let url = URL(string: "https://pqtoyuhklcrmatorasvb.supabase.co/rest/v1/catalog?limit=2")!
     let apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxdG95dWhrbGNybWF0b3Jhc3ZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc0NTcxNTAsImV4cCI6MjA1MzAzMzE1MH0.8Zs2n2tNqjH3AtgmjcgeWeGfqkXW0zItwK74DRfFwqc"
     
-//    func sendRequest() {
-//        
-//        AF.request(url, method: .get)
-//        
-//    }
+    func sendRequest(count: Int, completion: @escaping ([CatalogItemModel]) -> Void) {
+        
+        let param: Parameters = [
+            "limit" : count.description
+        ]
+        
+        AF.request(url, method: .get, parameters: param, headers: ["apiKey" : apiKey]).response { result in
+            guard result.error == nil else { return }
+            
+            guard let data = result.data else { return }
+            do {
+                let result = try JSONDecoder().decode(CatalogItemModel.self, from: data)
+            } catch {
+                print(error)
+            }
+        }
+        
+    }
     
-    func sendRequest(count: Int) {
+    
+    func sendReq(count: Int) {
         
         //1. create url
         var urlComponents = URLComponents()
@@ -48,7 +62,7 @@ class NetworkManager {
             guard let data else { return }
             
             do {
-                let result = try? JSONDecoder().decode(CatalogItemModel.self, from: data)
+                let result = try JSONDecoder().decode(CatalogItemModel.self, from: data)
             } catch {
                 print(error)
             }

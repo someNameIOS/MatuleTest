@@ -10,7 +10,8 @@ import UIKit
 // MARK: View
 class MainViewController: UIViewController {
     
-    let collectionData = MainSectionModel.mockData()
+    var collectionData = MainSectionModel.mockData()
+    private let manager = NetworkManager()
     
     // Индекс выбранной ячейки
     var selectedIndexPath: IndexPath?
@@ -32,33 +33,14 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Отложенное выполнение установки цвета
-        DispatchQueue.main.async {
-            let firstIndexPath = IndexPath(item: 0, section: 1)
-            self.collectionView.selectItem(at: firstIndexPath, animated: false, scrollPosition: .top)
-            self.selectedIndexPath = firstIndexPath
-            if let cell = self.collectionView.cellForItem(at: firstIndexPath) as? CategoryCell {
-                cell.contentView.backgroundColor = .appAccent
-                cell.label.textColor = .appBlock
-            }
+        manager.sendRequest(count: 2) { [weak self] items in
+            guard let self = self else { return }
+            collectionData[2].items = items
+            collectionView.reloadData()
         }
-        
         view.addSubview(collectionView)
     }
     
-    // MARK: viewWillAppear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
-    // MARK: viewWillDisappear
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    // MARK: createLayout
     private func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { section, _ in
             switch section {
@@ -70,7 +52,6 @@ class MainViewController: UIViewController {
         }
     }
     
-    // MARK: createSearchSection
     private func createSearchSection() -> NSCollectionLayoutSection {
         //Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
@@ -91,7 +72,6 @@ class MainViewController: UIViewController {
         return section
     }
     
-    // MARK: createCategorySection
     private func createCategorySection() -> NSCollectionLayoutSection {
         //Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
@@ -114,7 +94,6 @@ class MainViewController: UIViewController {
         return section
     }
     
-    // MARK: createPopularSection
     private func createPopularSection() -> NSCollectionLayoutSection {
         //Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(view.frame.width / 2 - 28),
@@ -136,7 +115,6 @@ class MainViewController: UIViewController {
         return section
     }
     
-    // MARK: createStockSection
     private func createStockSection() -> NSCollectionLayoutSection {
         //Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
@@ -159,7 +137,6 @@ class MainViewController: UIViewController {
         return section
     }
     
-    // MARK: setupHeaderSize
     private func setupHeaderSize(for section: Int) -> NSCollectionLayoutBoundarySupplementaryItem {
         let height: CGFloat = section == 0 ? 44 : 19
         return NSCollectionLayoutBoundarySupplementaryItem(
@@ -219,29 +196,12 @@ extension MainViewController: UICollectionViewDelegate {
             default:
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseID, for: indexPath) as! SectionHeader
                 header.setup(model: section, type: section.headerType)
+                header.isPopular = indexPath.section == 2
+                header.viewController = self
                 return header
             }
         }
         
         return UICollectionReusableView()
     }
-    
-    // фунукция для изменения ячейки при её нажатии
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard indexPath.section == 1 else { return }
-        
-        if let previousIndexPath = selectedIndexPath {
-            if let previousCell = collectionView.cellForItem(at: previousIndexPath) as? CategoryCell {
-                previousCell.contentView.backgroundColor = .appBlock
-                previousCell.label.textColor = .appText
-            }
-        }
-        
-        if let newCell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
-            newCell.contentView.backgroundColor = .appAccent
-            newCell.label.textColor = .appBlock
-        }
-        selectedIndexPath = indexPath
-    }
-    
 }

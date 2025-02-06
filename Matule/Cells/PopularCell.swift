@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 // MARK: View
 class PopularCell: UICollectionViewCell {
@@ -30,6 +31,7 @@ class PopularCell: UICollectionViewCell {
     
     lazy var descriptionLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.text = "BEST SELLER"
         $0.font = .systemFont(ofSize: 12, weight: .regular)
         $0.textColor = .appAccent
         $0.numberOfLines = 0
@@ -55,6 +57,8 @@ class PopularCell: UICollectionViewCell {
     lazy var customView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = .appAccent
+        $0.layer.cornerRadius = 16
+        $0.layer.maskedCorners = [.layerMinXMinYCorner]
         return $0
     }(UIView())
     
@@ -81,17 +85,16 @@ class PopularCell: UICollectionViewCell {
         setupConstraints()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        customView.layoutIfNeeded()
-        customView.roundCorners([.topLeft], radius: 16)
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        customView.layoutIfNeeded()
+//        customView.roundCorners([.topLeft], radius: 16)
+//    }
     
-    func setup(with model: MainItemModel) {
-        image.image = UIImage(named: model.shoeImage ?? "")
-        descriptionLabel.text = model.description
-        shoeNameLabel.text = model.shoeName
-        priceLabel.text = model.price
+    func setup(with model: CatalogItemModel) {
+        image.sd_setImage(with: URL(string: model.image ?? ""))
+        shoeNameLabel.text = model.name
+        priceLabel.text = model.price != nil ? String(format: "%.2f ₽", model.price!) : nil
     }
     
     private func setupConstraints() {

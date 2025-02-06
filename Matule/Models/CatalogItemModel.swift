@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CatalogItemModel: Codable {
+struct CatalogItemModel: Decodable {
     var id: UUID?
     var name: String?
     var category: String?

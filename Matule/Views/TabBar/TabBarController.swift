@@ -99,10 +99,12 @@ class TabBarController: UITabBarController {
     }
     
     private func setupViewControllers() {
-        let homeVC = MainViewController()
-        let favoriteVC = FavouritesViewController()
+        let homeVC = UINavigationController(rootViewController: MainViewController())
+        let favoriteVC = UINavigationController(rootViewController: FavouritesViewController())
+        let notificationVC = UINavigationController(rootViewController: NotificationViewController())
+        let profileVC = UINavigationController(rootViewController: ProfileViewController())
 
-        viewControllers = [homeVC, favoriteVC]
+        viewControllers = [homeVC, favoriteVC, notificationVC, profileVC]
     }
     
     private func setupConstraints() {
@@ -144,13 +146,17 @@ extension TabBarController {
     }
     
     @objc func notificationTapped() {
+        selectedIndex = 2
+        updateButtonSelection(selectedButton: notificationButton)
     }
     
     @objc func profileTapped() {
+        selectedIndex = 3
+        updateButtonSelection(selectedButton: profileButton)
     }
     
     private func updateButtonSelection(selectedButton: UIButton) {
-        let allButtons = [mainButton, favouriteButton]
+        let allButtons = [mainButton, favouriteButton, notificationButton, profileButton]
         
         for button in allButtons {
             button.tintColor = .appSubTextDark

@@ -25,8 +25,8 @@ class StockCell: UICollectionViewCell {
         setupConstraints()
     }
     
-    func setup(with model: MainItemModel) {
-        image.image = UIImage(named: model.stocksImage ?? "")
+    func setup(with model: CatalogItemModel) {
+        image.image = UIImage(named: model.image ?? "")
     }
     
     private func setupConstraints() {

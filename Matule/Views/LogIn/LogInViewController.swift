@@ -109,14 +109,14 @@ final class LogInViewController: UIViewController {
         
         view.backgroundColor = .appBlock
         view.addSubviews(mainView, bottomView)
-        bottomView.addSubviews(registerLabel, registerButton)
         mainView.addSubviews(greetingLabel, descriptionLabel, emailLabel, emailTextField, passwordLabel, recoveryButton, passwordView, enterButton)
         passwordView.addSubviews(passwordTextField, eyeButton)
+        bottomView.addSubviews(registerLabel, registerButton)
 
         setupConstraints()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-            view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(tapGesture)
         
         }
     

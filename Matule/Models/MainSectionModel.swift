@@ -13,28 +13,26 @@ enum HeaderType {
 
 struct MainSectionModel {
     let header: String
-    let items: [MainItemModel]
+    var items: [CatalogItemModel]
     let headerType: HeaderType
     
     static func mockData() -> [MainSectionModel] {
-        let searchItems: [MainItemModel] = [
-            MainItemModel(),
+        let searchItems: [CatalogItemModel] = [
+            CatalogItemModel(),
         ]
         
-        let categoryItems: [MainItemModel] = [
-            MainItemModel(categoryName: "Все"),
-            MainItemModel(categoryName: "Outdoor"),
-            MainItemModel(categoryName: "Tennis"),
+        let categoryItems: [CatalogItemModel] = [
+            CatalogItemModel(category: "Все"),
+            CatalogItemModel(category: "Outdoor"),
+            CatalogItemModel(category: "Tennis"),
         ]
         
-        let popularItems: [MainItemModel] = [
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
-            MainItemModel(shoeImage: "Sneakers", description: "BEST SELLER", shoeName: "Nike Air Max", price: "₽752.00"),
+        let popularItems: [CatalogItemModel] = [
         ]
         
-        let stockItems: [MainItemModel] = [
-            MainItemModel(stocksImage: "Stocks"),
-            MainItemModel(stocksImage: "Stocks"),
+        let stockItems: [CatalogItemModel] = [
+            CatalogItemModel(image: "Stocks"),
+            CatalogItemModel(image: "Stocks"),
         ]
         
         let searchSection: MainSectionModel = .init(header: "Поиск", items: searchItems, headerType: .search)

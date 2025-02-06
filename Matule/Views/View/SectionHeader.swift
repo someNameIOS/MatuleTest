@@ -10,6 +10,8 @@ import UIKit
 class SectionHeader: UICollectionReusableView {
     
     static let reuseID = "SectionHeader"
+    var viewController: UIViewController?
+    var isPopular: Bool = false
     
     lazy var hStack: UIStackView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +37,7 @@ class SectionHeader: UICollectionReusableView {
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         $0.setTitleColor(.appAccent, for: .normal)
         $0.titleLabel?.textAlignment = .right
+        $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return $0
     }(UIButton())
     
@@ -51,7 +54,7 @@ class SectionHeader: UICollectionReusableView {
         switch type {
         case .popular: headerButton.setTitle("Все", for: .normal)
         case .stock: headerButton.setTitle("Все", for: .normal)
-        default: headerButton.setImage(UIImage(systemName: ""), for: .normal)
+        default: headerButton.setTitle("", for: .normal)
         }
     }
     
@@ -68,5 +71,13 @@ class SectionHeader: UICollectionReusableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension SectionHeader {
+    @objc func buttonTapped() {
+        if isPopular {
+            viewController?.navigationController?.pushViewController(PopularViewController(), animated: true)
+        }
     }
 }

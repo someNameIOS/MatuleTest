@@ -29,8 +29,8 @@ class CategoryCell: UICollectionViewCell {
         contentView.addSubview(label)
     }
     
-    func setup(with model: MainItemModel) {
-        label.text = model.categoryName
+    func setup(with model: CatalogItemModel) {
+        label.text = model.category
     }
     
     required init?(coder: NSCoder) {

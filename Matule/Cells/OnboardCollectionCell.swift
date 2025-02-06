@@ -133,7 +133,7 @@ class OnboardCollectionCell: UICollectionViewCell {
         thirdViewWidthConstraint?.isActive = true
         
         titleLabel.topAnchor.constraint(equalTo: isFirst ? safeAreaLayoutGuide.topAnchor : imageView.bottomAnchor, constant: isFirst ? 29 : 60).isActive = true
-        imageView.topAnchor.constraint(equalTo: isFirst ? titleLabel.bottomAnchor : topAnchor, constant: isFirst ? 130 : 37).isActive = true
+        imageView.topAnchor.constraint(equalTo: isFirst ? titleLabel.bottomAnchor : topAnchor, constant: isFirst ? 108 : 80).isActive = true
         stack.topAnchor.constraint(equalTo: isFirst ? imageView.bottomAnchor : descriptionLabel.bottomAnchor, constant: isFirst ? 26 : 40).isActive = true
     }
     

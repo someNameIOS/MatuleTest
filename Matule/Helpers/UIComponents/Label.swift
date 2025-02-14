@@ -8,36 +8,35 @@
 import UIKit
 
 class Label: UILabel {
-    let labelColor: UIColor
-    let labelFont: UIFont
-    let labelAlignment: NSTextAlignment
     let labelText: String
-    let labelNumberOfLines: Int
+    let labelAlignment: NSTextAlignment
+    let labelFont: UIFont
+    let labelColor: UIColor
     let labelHidden: Bool
+    let labelNumberOfLines: Int
     
-    init(labelColor: UIColor = .appText, labelFont: UIFont, labelAlignment: NSTextAlignment, labelText: String = "", labelNumberOfLines: Int = 0, labelHidden: Bool = false) {
-        self.labelColor = labelColor
-        self.labelFont = labelFont
-        self.labelAlignment = labelAlignment
+    init(labelText: String, labelAlignment: NSTextAlignment = .center, labelFont: UIFont = .systemFont(ofSize: 16, weight: .regular), labelColor: UIColor, labelHidden: Bool = false, labelNumberOfLines: Int = 0) {
         self.labelText = labelText
-        self.labelNumberOfLines = labelNumberOfLines
+        self.labelAlignment = labelAlignment
+        self.labelFont = labelFont
+        self.labelColor = labelColor
         self.labelHidden = labelHidden
+        self.labelNumberOfLines = labelNumberOfLines
         
         super.init(frame: .zero)
         
         translatesAutoresizingMaskIntoConstraints = false
         sizeToFit()
-        textColor = labelColor
-        font = labelFont
-        textAlignment = labelAlignment
         text = labelText
-        numberOfLines = labelNumberOfLines
+        textAlignment = labelAlignment
+        font = labelFont
+        textColor = labelColor
         isHidden = labelHidden
+        numberOfLines = labelNumberOfLines
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
 }
+

@@ -100,7 +100,7 @@ class TabBarController: UITabBarController {
     
     private func setupViewControllers() {
         let homeVC = UINavigationController(rootViewController: MainViewController())
-        let favoriteVC = UINavigationController(rootViewController: FavouritesViewController())
+        let favoriteVC = UINavigationController(rootViewController: FavoritesViewController())
         let notificationVC = UINavigationController(rootViewController: NotificationViewController())
         let profileVC = UINavigationController(rootViewController: ProfileViewController())
 
@@ -155,7 +155,7 @@ extension TabBarController {
         updateButtonSelection(selectedButton: profileButton)
     }
     
-    private func updateButtonSelection(selectedButton: UIButton) {
+    func updateButtonSelection(selectedButton: UIButton) {
         let allButtons = [mainButton, favouriteButton, notificationButton, profileButton]
         
         for button in allButtons {

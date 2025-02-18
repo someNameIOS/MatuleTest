@@ -25,21 +25,7 @@ class LogInViewController: UIViewController {
     lazy var invalidLabel: UILabel = Label(labelText: "", labelAlignment: .left, labelFont: .systemFont(ofSize: 12, weight: .regular), labelColor: .appRed)
     lazy var registerLabel: UILabel = Label(labelText: "Вы впервые?", labelAlignment: .right, labelFont: .systemFont(ofSize: 16, weight: .medium), labelColor: .appHint)
     
-    
-    lazy var emailTextField: UITextField = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.placeholder = "xyz@gmail.com"
-        $0.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.autocapitalizationType = .none
-        $0.textColor = .appHint
-        $0.backgroundColor = .appBackground
-        $0.layer.cornerRadius = 15
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 48))
-        $0.leftViewMode = .always
-        $0.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 48))
-        $0.rightViewMode = .always
-        return $0
-    }(UITextField())
+    lazy var emailTextField: UITextField = UITextField.textField(placeholder: "xyz@gmail.com", leftView: UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 48)), leftViewMode: .always, rightView: UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 48)), rightViewMode: .always)
     
     lazy var passwordView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -48,16 +34,7 @@ class LogInViewController: UIViewController {
         return $0
     }(UIView())
     
-    lazy var passwordTextField: UITextField = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.placeholder = "••••••••"
-        $0.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.textColor = .appHint
-        $0.backgroundColor = .appBackground
-        $0.layer.cornerRadius = 15
-        $0.isSecureTextEntry = true
-        return $0
-    }(UITextField())
+    lazy var passwordTextField: UITextField = UITextField.textField(placeholder: "••••••••", isSecurityTextEntry: true)
     
     lazy var eyeButton: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -67,16 +44,7 @@ class LogInViewController: UIViewController {
         return $0
     }(UIButton())
     
-    lazy var enterButton: UIButton = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setTitle("Войти", for: .normal)
-        $0.setTitleColor(.appBackground, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.layer.cornerRadius = 14
-        $0.backgroundColor = .appAccent
-        $0.addTarget(self, action: #selector(enter), for: .touchUpInside)
-        return $0
-    }(UIButton())
+    lazy var enterButton: UIButton = UIButton.button(title: "Войти", target: self, selector: #selector(enter))
     
     lazy var bottomView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false

@@ -14,6 +14,7 @@ class PopularCell: UICollectionViewCell {
     static let reuseID: String = "PopularCell"
     var favoriteIconClicked: Bool = false
     var addIconClicked: Bool = false
+    var model: CatalogItemModel?
     
     lazy var image: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -85,17 +86,15 @@ class PopularCell: UICollectionViewCell {
         setupConstraints()
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        customView.layoutIfNeeded()
-//        customView.roundCorners([.topLeft], radius: 16)
-//    }
-    
     func setup(with model: CatalogItemModel) {
+        self.model = model
         image.sd_setImage(with: URL(string: model.image ?? ""))
         shoeNameLabel.text = model.name
         priceLabel.text = model.price != nil ? String(format: "%.2f ₽", model.price!) : nil
+        
+        updateFavoriteButton()
     }
+    
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -120,8 +119,8 @@ class PopularCell: UICollectionViewCell {
             shoeNameLabel.heightAnchor.constraint(equalToConstant: 20),
             
             priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 9),
+            priceLabel.trailingAnchor.constraint(equalTo: customView.leadingAnchor, constant: -18),
             priceLabel.topAnchor.constraint(equalTo: shoeNameLabel.bottomAnchor, constant: 14),
-            priceLabel.widthAnchor.constraint(equalToConstant: 70),
             priceLabel.heightAnchor.constraint(equalToConstant: 16),
             
             customView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -147,11 +146,21 @@ extension PopularCell {
         
     // Нажатии на кнопку избранное
     @objc func favoriteButtonTapped() {
-        favoriteIconClicked.toggle()
-                
-        let imageName: String = favoriteIconClicked ? "FavoriteFill" : "Favorite"
+        guard let model = model else { return }
+        
+        FavoriteManager.shared.toggleFavorite(product: model)
+        
+        updateFavoriteButton()
+    }
+
+    private func updateFavoriteButton() {
+        guard let model = model else { return }
+        
+        let isFavorite = FavoriteManager.shared.isFavorite(product: model)
+        let imageName: String = isFavorite ? "FavoriteFill" : "Favorite"
+        
         favoriteButton.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate), for: .normal)
-        favoriteButton.tintColor = favoriteIconClicked ? .appRed : .appText
+        favoriteButton.tintColor = isFavorite ? .appRed : .appText
     }
     
     // Нажатие на кнопку корзина
@@ -161,4 +170,5 @@ extension PopularCell {
         let imageName: String = addIconClicked ? "Cart" : "Append"
         addToCartButton.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate), for: .normal)
     }
+    
 }

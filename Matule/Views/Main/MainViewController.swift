@@ -33,12 +33,13 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(collectionView)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleFavoritesUpdated), name: NSNotification.Name("FavoritesUpdated"), object: nil)
         manager.sendRequest(count: 2) { [weak self] items in
             guard let self = self else { return }
             collectionData[2].items = items
             collectionView.reloadData()
         }
-        view.addSubview(collectionView)
     }
     
     private func createLayout() -> UICollectionViewCompositionalLayout {
@@ -143,7 +144,9 @@ class MainViewController: UIViewController {
                 layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                    heightDimension: .absolute(height)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
     }
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("FavoritesUpdated"), object: nil)
+    }
 }
 
 // MARK: dataSource
@@ -203,5 +206,12 @@ extension MainViewController: UICollectionViewDelegate {
         }
         
         return UICollectionReusableView()
+    }
+}
+
+//MARK: Controller
+extension MainViewController {
+    @objc private func handleFavoritesUpdated() {
+        collectionView.reloadData()
     }
 }

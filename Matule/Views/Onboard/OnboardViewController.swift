@@ -30,16 +30,7 @@ class OnboardViewController: UIViewController {
         return $0
     }(UICollectionView(frame: view.frame, collectionViewLayout: layout))
     
-    lazy var nextButton: UIButton = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .appBlock
-        $0.layer.cornerRadius = 13
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.setTitleColor(.appText, for: .normal)
-        $0.setTitle("Начать", for: .normal)
-        $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        return $0
-    }(UIButton())
+    lazy var nextButton: UIButton = UIButton.button(backgroundColor: .appBlock,title: "Начать", titleColor: .appText, target: self, selector: #selector(buttonTapped))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +78,7 @@ extension OnboardViewController {
         
         if currentSlide < maxSlide {
             currentSlide += 1
-            collectionView.scrollToItem(at: IndexPath(item: currentSlide, section: 0), at: .centeredHorizontally, animated: false)
+            collectionView.scrollToItem(at: IndexPath(item: currentSlide, section: 0), at: .centeredHorizontally, animated: true)
         } else if currentSlide == maxSlide {
             let nextVC = TabBarController()
             if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate, let window = sceneDelegate.window {

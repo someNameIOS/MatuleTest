@@ -10,6 +10,7 @@ import UIKit
 //MARK: View
 class LogInViewController: UIViewController {
     
+    let authentification = Authentification()
     var iconClick: Bool = false
     
     lazy var mainView: UIView = {
@@ -172,11 +173,45 @@ extension LogInViewController {
         view.endEditing(true)
     }
     
+//    @objc private func enter() {
+//        //Валидация на пустоту строк
+//        guard let email = emailTextField.text, !email.isEmpty,
+//              let password = passwordTextField.text, !password.isEmpty else {
+//            invalidLabel.text = "• Заполните все поля"
+//            return
+//        }
+//        
+//        //Валидация email
+//        guard isValidEmail(email) else {
+//            invalidLabel.text = "• Некорректный email"
+//            return
+//        }
+//        
+//        //Валидация пароля
+//        guard let password = passwordTextField.text, password.count >= 6 else {
+//            invalidLabel.text = "• Пароль может содержать минимум 6 символов"
+//            return
+//        }
+//        
+//        invalidLabel.text = ""
+//        //Переход на экрна Home
+//        let sceneDelegate = (UIApplication.shared.connectedScenes.first as? UIWindowScene)!.delegate as! SceneDelegate
+//        sceneDelegate.window?.rootViewController = TabBarController()
+//        sceneDelegate.window?.makeKeyAndVisible()
+//        
+//    }
+//    
+//    // Функция для проверки email
+//    private func isValidEmail(_ email: String) -> Bool {
+//        let emailRegex = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$"
+//        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
+//    }
+    
     @objc private func enter() {
-        //Валидация на пустоту строк
         guard let email = emailTextField.text, !email.isEmpty,
               let password = passwordTextField.text, !password.isEmpty else {
-            invalidLabel.text = "• Заполните все поля"
+            invalidLabel.text = "Заполните все поля"
+            invalidLabel.isHidden = false
             return
         }
         
@@ -192,8 +227,22 @@ extension LogInViewController {
             return
         }
         
-        //Переход на экрна Home
-        invalidLabel.text = ""
+        authentification.signIn(email: email, password: password) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let token):
+                    self.invalidLabel.isHidden = true
+                    self.goToHome()
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                    self.invalidLabel.text = "Ошибка входа: \(error.localizedDescription)"
+                    self.invalidLabel.isHidden = false
+                }
+            }
+        }
+    }
+    
+    private func goToHome() {
         let sceneDelegate = (UIApplication.shared.connectedScenes.first as? UIWindowScene)!.delegate as! SceneDelegate
         sceneDelegate.window?.rootViewController = TabBarController()
         sceneDelegate.window?.makeKeyAndVisible()

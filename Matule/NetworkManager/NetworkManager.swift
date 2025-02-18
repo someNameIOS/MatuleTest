@@ -35,42 +35,4 @@ class NetworkManager {
         
     }
     
-//    func sendReq(count: Int) {
-//        
-//        //1. create url
-//        var urlComponents = URLComponents()
-//        urlComponents.scheme = "https"
-//        urlComponents.host = "pqtoyuhklcrmatorasvb.supabase.co"
-//        urlComponents.path = "/rest/v1/catalog"
-//        urlComponents.queryItems = [
-//            URLQueryItem(name: "limit", value: count.description)
-//        ]
-//        
-//        guard let url = urlComponents.url else { return }
-//        
-//        //2. create request
-//        var request = URLRequest(url: url)
-//        request.allHTTPHeaderFields = [
-//            "apiKey" : apiKey,
-//        ]
-//        
-//        //3. send request
-//        URLSession.shared.dataTask(with: request) { (data, response, error) in
-//            guard error == nil else {
-//                print(error!)
-//                return
-//            }
-//            
-//            guard let data else { return }
-//            
-//            do {
-//                let result = try JSONDecoder().decode(CatalogItemModel.self, from: data)
-//            } catch {
-//                print(error)
-//            }
-//            
-//        }.resume()
-//        
-//    }
-    
 }

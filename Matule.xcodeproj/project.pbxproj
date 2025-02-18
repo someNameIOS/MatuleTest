@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0820BB92D650F7200555EC6 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = D0820BB82D650F7200555EC6 /* Auth */; };
+		D0820BBB2D650F7200555EC6 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = D0820BBA2D650F7200555EC6 /* Functions */; };
+		D0820BBD2D650F7200555EC6 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = D0820BBC2D650F7200555EC6 /* PostgREST */; };
+		D0820BBF2D650F7200555EC6 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = D0820BBE2D650F7200555EC6 /* Realtime */; };
+		D0820BC12D650F7200555EC6 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = D0820BC02D650F7200555EC6 /* Storage */; };
+		D0820BC32D650F7200555EC6 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = D0820BC22D650F7200555EC6 /* Supabase */; };
 		D0F07A4D2D4B74BF001F2D21 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = D0F07A4C2D4B74BF001F2D21 /* SDWebImage */; };
 		D0F07A4F2D4B74BF001F2D21 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0F07A4E2D4B74BF001F2D21 /* SDWebImageMapKit */; settings = {ATTRIBUTES = (Required, ); }; };
 		D0F07AF32D4B8AF1001F2D21 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D0F07AF22D4B8AF1001F2D21 /* Alamofire */; };
@@ -55,8 +61,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0820BBF2D650F7200555EC6 /* Realtime in Frameworks */,
+				D0820BBD2D650F7200555EC6 /* PostgREST in Frameworks */,
+				D0820BBB2D650F7200555EC6 /* Functions in Frameworks */,
 				D0F07AF32D4B8AF1001F2D21 /* Alamofire in Frameworks */,
+				D0820BC12D650F7200555EC6 /* Storage in Frameworks */,
+				D0820BC32D650F7200555EC6 /* Supabase in Frameworks */,
 				D0F07A4F2D4B74BF001F2D21 /* SDWebImageMapKit in Frameworks */,
+				D0820BB92D650F7200555EC6 /* Auth in Frameworks */,
 				D0F07A4D2D4B74BF001F2D21 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				D074479A2D086D2E0063B7A1 /* Matule */,
+				D0820BB72D650F7200555EC6 /* Frameworks */,
 				D07447992D086D2E0063B7A1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -78,6 +91,13 @@
 				D07447982D086D2E0063B7A1 /* Matule.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D0820BB72D650F7200555EC6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -104,6 +124,12 @@
 				D0F07A4C2D4B74BF001F2D21 /* SDWebImage */,
 				D0F07A4E2D4B74BF001F2D21 /* SDWebImageMapKit */,
 				D0F07AF22D4B8AF1001F2D21 /* Alamofire */,
+				D0820BB82D650F7200555EC6 /* Auth */,
+				D0820BBA2D650F7200555EC6 /* Functions */,
+				D0820BBC2D650F7200555EC6 /* PostgREST */,
+				D0820BBE2D650F7200555EC6 /* Realtime */,
+				D0820BC02D650F7200555EC6 /* Storage */,
+				D0820BC22D650F7200555EC6 /* Supabase */,
 			);
 			productName = Matule;
 			productReference = D07447982D086D2E0063B7A1 /* Matule.app */;
@@ -136,6 +162,7 @@
 			packageReferences = (
 				D0F07A4B2D4B74BF001F2D21 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				D0F07AF12D4B8AF1001F2D21 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				D0C870D82D650E0C0053F03D /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D07447992D086D2E0063B7A1 /* Products */;
@@ -367,6 +394,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D0C870D82D650E0C0053F03D /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase-community/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
 		D0F07A4B2D4B74BF001F2D21 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -386,6 +421,36 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D0820BB82D650F7200555EC6 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0C870D82D650E0C0053F03D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		D0820BBA2D650F7200555EC6 /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0C870D82D650E0C0053F03D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		D0820BBC2D650F7200555EC6 /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0C870D82D650E0C0053F03D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		D0820BBE2D650F7200555EC6 /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0C870D82D650E0C0053F03D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		D0820BC02D650F7200555EC6 /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0C870D82D650E0C0053F03D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Storage;
+		};
+		D0820BC22D650F7200555EC6 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0C870D82D650E0C0053F03D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
 		D0F07A4C2D4B74BF001F2D21 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D0F07A4B2D4B74BF001F2D21 /* XCRemoteSwiftPackageReference "SDWebImage" */;
